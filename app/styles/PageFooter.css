@@ -1,0 +1,46 @@
+.page-footer {
+  background: hsl(var(--color-black));
+  color: hsl(var(--color-white));
+  display: grid;
+  font: var(--text-preset-9);
+  gap: 1rem;
+  padding: 4rem calc((100vw - var(--max-page-width)) / 2) 2rem;
+}
+
+@scope (.page-footer) {
+  p.description {
+    opacity: .5;
+  }
+
+  p.copyright {
+    font-weight: 700;
+    opacity: .5;
+  }
+
+  nav.social-media {
+    margin-left: auto;
+
+    & ul {
+      gap: 1rem;
+    }
+  }
+
+  .container-logo-site {
+    align-items: center;
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+  }
+
+  .container-text-social {
+    align-items: center;
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .container-paragraphs {
+    display: grid;
+    gap: 1rem;
+  }
+}

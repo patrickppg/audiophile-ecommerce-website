@@ -1,0 +1,24 @@
+.page-header {
+  background: hsl(var(--color-black));
+  padding: 0 calc((100vw - var(--max-page-width)) / 2);
+}
+
+@scope (.page-header) {
+  .container-content {
+    align-items: center;
+    border-bottom: 1px solid hsl(0, 0%, 20%);
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem 0;
+  }
+  
+  button.cart {
+    color: hsl(var(--color-white));
+    display: block;
+    transition: color var(--transition-duration-1);
+
+    &:hover {
+      color: hsl(var(--color-orange-dark));
+    }
+  }
+}

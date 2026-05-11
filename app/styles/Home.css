@@ -1,0 +1,135 @@
+.section-hero {
+  align-content: center;
+  background:
+    url("../../public/images/home/desktop/image-hero.jpg") right calc((75vw - var(--max-page-width)) / 2) top -5rem / auto 112% no-repeat,
+    hsl(var(--color-black));
+  color: hsl(var(--color-white));
+  min-height: 35rem;
+  padding: 2rem calc((100vw - var(--max-page-width)) / 2);
+}
+
+.section-zx9-speaker {
+  background: hsl(var(--color-orange-dark));
+  border-radius: var(--radius-8);
+  box-sizing: border-box;
+  color: hsl(var(--color-white));
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  max-width: var(--max-page-width);
+  overflow: clip;
+  padding: 2.5rem 8rem;
+}
+
+.section-zx7-speaker {
+  border-radius: var(--radius-8);
+  box-sizing: border-box;
+  color: hsl(var(--color-black));
+  margin: 3rem auto;
+  max-width: var(--max-page-width);
+  overflow: clip;
+  padding: 6rem;
+  position: relative;
+}
+
+.section-yx1-earphones {
+  display: flex;
+  gap: 2rem;
+  margin: 3rem auto;
+  max-width: var(--max-page-width);
+
+  > * {
+    flex: 1;
+  }
+}
+
+@scope (.section-hero) {
+  h1 {
+    font: var(--text-preset-1);
+    letter-spacing: 2px;
+    margin-block: 2rem;
+    text-transform: uppercase;
+  }
+
+  .new {
+    font: var(--text-preset-7);
+    letter-spacing: 10px;
+    opacity: .5;
+    text-transform: uppercase;
+  }
+
+  .description {
+    margin-block: 2rem;
+    max-width: 23rem;
+    opacity: .7;
+  }
+
+  .container-hero-content {
+    max-width: 25rem;
+  }
+}
+
+@scope (.section-zx9-speaker) {
+  img {
+    height: 30rem;
+    transform: translateY(11%);
+  }
+  
+  h2 {
+    font: var(--text-preset-1);
+    letter-spacing: 2px;
+    margin: unset;
+    text-transform: uppercase;
+  }
+
+  p {
+    margin-block: 2.5rem;
+    opacity: .75;
+  }
+
+  .container-content {
+    align-content: center;
+    justify-self: end;
+    max-width: 20rem;
+  }
+}
+
+@scope (.section-zx7-speaker) {
+  h2 {
+    font: var(--text-preset-4);
+    letter-spacing: 2px;
+    margin: unset;
+    margin-bottom: 2rem;
+    max-width: max-content;
+    text-transform: uppercase;
+  }
+
+  img {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: -1;
+  }
+}
+
+@scope (.section-yx1-earphones) {
+  h2 {
+    font: var(--text-preset-4);
+    letter-spacing: 2px;
+    margin: unset;
+    margin-bottom: 2rem;
+    max-width: max-content;
+    text-transform: uppercase;
+  }
+
+  img {
+    border-radius: var(--radius-8);
+  }
+
+  .container-content {
+    align-content: center;
+    background: hsl(var(--color-grey-3));
+    border-radius: var(--radius-8);
+    padding: 6rem;
+  }
+}

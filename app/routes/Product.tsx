@@ -3,9 +3,12 @@ import type { Route } from "./+types/Product"
 import { formatPrice } from "~/utils"
 import { Link, useFetcher, useNavigate } from "react-router"
 import ShopList from "~/components/ShopList"
+import "../styles/Product.css"
+import Spinbutton from "~/components/Spinbutton/Spinbutton"
 
 export async function clientLoader({ params }: Route.LoaderArgs) {
   const product = await getProduct(params.id)
+  console.log(product)
 
   return { product }
 }
@@ -16,50 +19,56 @@ export default function Product({ loaderData }: Route.ComponentProps) {
   const fetcher = useFetcher()
 
   return (
-    <>
-      <button onClick={() => navigate(-1)}>Go Back</button>
-      <img src={product.image.desktop} alt="" />
-      <h1>{product.name}</h1>
-      {product.new && <p>New product</p>}
-      <p>{product.description}</p>
-      <p><b>{formatPrice(product.price)}</b></p>
-      <fetcher.Form method="POST" action="/cart/add">
-        <input type="number" name="quantity" />
-        <input type="hidden" name="id" value={product.id} />
-        <button>add to cart</button>
-      </fetcher.Form>
-      <section>
-        <h2>Features</h2>
-        <p>{product.features}</p>
+    <div className="page-product">
+      <button className="back" onClick={() => navigate(-1)}>Go Back</button>
+      <section className="overview">
+        <img src={product.image.desktop} alt="" />
+        <div className="container-content">
+          {product.new && <p className="new">New product</p>}
+          <h1>{product.name}</h1>
+          <p>{product.description}</p>
+          <p className="price"><b>{formatPrice(product.price)}</b></p>
+          <fetcher.Form method="POST" action="/cart/add">
+            <Spinbutton className="quantity" name="quantity" defaultValue="1" />
+            <input type="hidden" name="id" value={product.id} />
+            <button className="widget-style-1">add to cart</button>
+          </fetcher.Form>
+        </div>
       </section>
-      <section>
-        <h2>In the box</h2>
-        <ul>
-          {product.includes.map((item, i) => (
-            <li key={i}>
-              <span>{item.quantity}x</span> {item.item}
-            </li>
-          ))}
-        </ul>
-      </section>
-      <div>
-        <img src={product.gallery.first.desktop} alt="" />
-        <img src={product.gallery.second.desktop} alt="" />
-        <img src={product.gallery.third.desktop} alt="" />
+      <div className="container-features-box">
+        <section className="features">
+          <h2>Features</h2>
+          <p>{product.features}</p>
+        </section>
+        <section className="in-the-box">
+          <h2>In the box</h2>
+          <ul>
+            {product.includes.map((item, i) => (
+              <li key={i}>
+                <span className="quantity">{item.quantity}x</span> <span className="item">{item.item}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
       </div>
-      <section>
+      <div className="gallery">
+        <img className="first" src={product.gallery.first.desktop} alt="" />
+        <img className="second" src={product.gallery.second.desktop} alt="" />
+        <img className="third" src={product.gallery.third.desktop} alt="" />
+      </div>
+      <section className="similar-products">
         <h2>You may also like</h2>
         <ul>
           {product.others.map((item, i) => (
             <li key={i}>
               <img src={product.others[i].image.desktop} alt="" />
               <strong>{item.name}</strong>
-              <Link to={item.url}>See product</Link>
+              <Link className="widget-style-1" to={item.url}>See product</Link>
             </li>
           ))}
         </ul>
       </section>
       <ShopList />
-    </>
+    </div>
   )
 }

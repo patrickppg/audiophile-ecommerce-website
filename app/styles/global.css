@@ -1,0 +1,162 @@
+@font-face {
+  font-family: "Manrope";
+  font-weight: 400;
+  src: url("/public/fonts/Manrope/static/Manrope-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Manrope";
+  font-weight: 700;
+  src: url("/public/fonts/Manrope/static/Manrope-Bold.ttf");
+}
+
+:root {
+  --color-orange-dark: 22, 65%, 57%;
+  --color-orange-light: 21, 94%, 75%;
+  --color-white: 0, 0%, 100%;
+  --color-black: 0, 0%, 9.7%;
+  --color-grey-1: 0, 0%, 40%;
+  --color-grey-2: 0, 0%, 95%;
+  --color-grey-3: 0, 0%, 98%;
+
+  --text-preset-1: 700 3.5rem / 1.03 "Manrope";
+  --text-preset-2: 700 2.5rem / 1.1 "Manrope";
+  --text-preset-3: 700 2rem / 1.125 "Manrope";
+  --text-preset-4: 700 1.75rem / 1.35 "Manrope";
+  --text-preset-5: 700 1.5rem / 1.375 "Manrope";
+  --text-preset-6: 700 1.125rem / 1.33 "Manrope";
+  --text-preset-7: .875rem / 1.35 "Manrope";
+  --text-preset-8: .8125rem / 1.92 "Manrope";
+  --text-preset-9: .9375rem / 1.66 "Manrope";
+
+  --max-page-width: 69.375rem;
+
+  --radius-8: 8px;
+
+  --transition-duration-1: .2s;
+}
+
+body {
+  font: var(--text-preset-9);
+}
+
+input[type="number"] {
+  appearance: none;
+  padding: .5rem 1rem;
+  -moz-appearance: textfield;
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+button, a {
+  display: flow-root;
+  min-height: 24px;
+  min-width: 24px;
+  width: fit-content;
+}
+
+.widget-style-1,
+.widget-style-2,
+.widget-style-3 {
+  align-content: center;
+  box-sizing: border-box;
+  display: flow-root;
+  font: 700 .8125rem / normal "Manrope";
+  letter-spacing: 1px;
+  padding: 1rem 2rem;
+  text-align: center;
+  text-transform: uppercase;
+  transition: background var(--transition-duration-1);
+
+}
+
+.widget-style-1 {
+  background: hsl(var(--color-orange-dark));
+  color: hsl(var(--color-white));
+
+  &:hover {
+    background: hsl(var(--color-orange-light));
+  }
+}
+
+.widget-style-2 {
+  background: hsl(var(--color-black));
+  color: hsl(var(--color-white));
+
+  &:hover {
+    background: hsl(0, 0%, 30%);
+  }
+}
+
+.widget-style-3 {
+  border: 2px solid hsl(var(--color-black));
+  color: hsl(var(--color-black));
+  transition-duration: var(--transition-duration-1);
+  transition-property: background, color;
+
+  &:hover {
+    background: hsl(var(--color-black));
+    color: hsl(var(--color-white));
+  }
+}
+
+svg {
+  fill: currentColor;
+
+  :is(a, button) &:only-of-type {
+    display: flow-root;
+  }
+}
+
+nav.style-1 {
+  & ul {
+    display: flex;
+    gap: 2.125rem;
+    margin: unset;
+    padding: unset;
+    width: fit-content;
+
+    & li {
+      list-style: none;
+    }
+  }
+  
+  & a {
+    color: hsl(var(--color-white));
+    font: var(--text-preset-8);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color var(--transition-duration-1);
+
+    &:hover {
+      color: hsl(var(--color-orange-dark))
+    }
+  }
+}
+
+p.new {
+  color: hsl(var(--color-orange-light));
+  font: var(--text-preset-7);
+  letter-spacing: 10px;
+  margin: unset;
+  text-transform: uppercase;
+}
+
+button.back {
+  opacity: .6;
+  transition-duration: var(--transition-duration-1);
+  transition-property: color, opacity;
+  
+  &:hover {
+    color: hsl(var(--color-orange-light));
+    opacity: unset;
+  }
+}
+
+legend {
+  padding: unset;
+}

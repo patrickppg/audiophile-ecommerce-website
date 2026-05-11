@@ -1,0 +1,146 @@
+.page-product {
+  margin-top: 5rem;
+  padding-inline: calc((100vw - var(--max-page-width)) / 2);
+}
+
+@scope (.page-product) {
+  section.overview {
+    align-items: center;
+    display: flex;
+    gap: 8rem;
+    margin-top: 3rem;
+    
+    & img {
+      border-radius: var(--radius-8);
+      height: 35rem;
+    }
+
+    & p.price {
+      font: var(--text-preset-6);
+      letter-spacing: 1.3px;      
+      opacity: unset;
+    }
+
+    & form {
+      display: flex;
+      gap: 1rem;
+    }
+
+    & .quantity {
+      gap: .6rem;
+    }
+  }
+
+  section.features {
+    max-width: 45rem;
+  }
+
+  section.in-the-box {
+    & ul {
+      margin: unset;
+      padding: unset;
+      
+      & li {
+        display: flex;
+        gap: 1rem;
+        list-style: none;
+        margin-block: .5rem;
+
+        & span.quantity {
+          color: hsl(var(--color-orange-dark));
+          font-weight: 700;
+        }
+
+        & span.item {
+          opacity: .6;
+        }
+      }
+    }
+  }
+
+  section.similar-products {
+    margin: 8rem 0;
+    
+    & h2 {
+      margin-block: 0 3rem;
+      text-align: center;
+    }
+    
+    & ul {
+      display: flex;
+      gap: 2rem;
+      margin: unset;
+      padding: unset;
+
+      & * {
+        flex: 1;
+      }
+    }
+    
+    & li {
+      align-items: center;
+      display: flex;
+      flex-flow: column;
+      gap: 2rem;
+    }
+    
+    & img {
+      border-radius: var(--radius-8);
+      width: 100%;
+    }
+
+    & strong {
+      font: var(--text-preset-4);
+      text-transform: uppercase;
+    }
+  }
+  
+  p:not(.new) {
+    margin-block: 1.5rem;
+    opacity: .6;
+  }
+
+  h1 {
+    font: var(--text-preset-2);
+    margin-block: 1rem 2rem;    
+    text-transform: uppercase;
+  }
+
+  h2 {
+    font: var(--text-preset-3);
+    text-transform: uppercase;
+  }
+
+  div.container-features-box {
+    display: flex;
+    gap: 8rem;
+    margin-block: 8rem;
+  }
+
+  div.gallery {
+    display: grid;
+    gap: 2rem;
+    grid:
+      "first  third"
+      "second third"
+     / 40fr   60fr;
+
+    & img {
+      border-radius: var(--radius-8);
+      height: 100%;
+      width: 100%;
+    }
+
+    & img.first {
+      grid-area: first;
+    }
+
+    & img.second {
+      grid-area: second;
+    }
+
+    & img.third {
+      grid-area: third;
+    }
+  }
+}

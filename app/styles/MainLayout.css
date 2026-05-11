@@ -1,0 +1,35 @@
+.aside-audiophile {
+  align-items: center;
+  display: flex;
+  gap: 3rem;
+  justify-content: space-between;
+  margin: 10rem auto;
+  max-width: var(--max-page-width);
+}
+
+@scope (.aside-audiophile) {
+  h2 {
+    font: var(--text-preset-2);
+    letter-spacing: 1.5px;
+    margin: unset;
+    margin-bottom: 3rem;
+    text-transform: uppercase;
+
+    & span {
+      color: hsl(var(--color-orange-dark));
+    }
+  }
+
+  p {
+    margin: unset;
+    opacity: .6;
+  }
+
+  img {
+    border-radius: var(--radius-8);
+  }
+
+  .container-content {
+    max-width: 27rem;
+  }
+}

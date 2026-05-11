@@ -1,0 +1,27 @@
+@layer unset, global, override;
+
+@import url("./global.css") layer(global);
+@import url("./override.css") layer(override);
+
+@layer unset {
+  body {
+    margin: unset;
+  }
+
+  a {
+    color: unset;
+    text-decoration: unset;
+  }
+
+  button {
+    background: unset;
+    border: unset;
+    font: unset;
+    margin: unset;
+    padding: unset;
+  }
+
+  input {
+    font: unset;
+  }
+}
