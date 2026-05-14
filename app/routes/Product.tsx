@@ -5,15 +5,16 @@ import { Link, useFetcher, useNavigate } from "react-router"
 import ShopList from "~/components/ShopList"
 import "../styles/Product.css"
 import Spinbutton from "~/components/Spinbutton/Spinbutton"
+import { useState } from "react"
 
 export async function clientLoader({ params }: Route.LoaderArgs) {
   const product = await getProduct(params.id)
-  console.log(product)
 
   return { product }
 }
 
 export default function Product({ loaderData }: Route.ComponentProps) {
+  const [value, setValue] = useState(1)
   const { product } = loaderData
   const navigate = useNavigate()
   const fetcher = useFetcher()
@@ -29,7 +30,15 @@ export default function Product({ loaderData }: Route.ComponentProps) {
           <p>{product.description}</p>
           <p className="price"><b>{formatPrice(product.price)}</b></p>
           <fetcher.Form method="POST" action="/cart/add">
-            <Spinbutton className="quantity" name="quantity" defaultValue="1" />
+            <Spinbutton
+              className="quantity"
+              name="quantity"
+              value={value}
+              min={1}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setValue(Number(e.currentTarget.value))}
+              onDecrement={() => setValue(value - 1)}
+              onIncrement={() => setValue(value + 1)}
+            />
             <input type="hidden" name="id" value={product.id} />
             <button className="widget-style-1">add to cart</button>
           </fetcher.Form>

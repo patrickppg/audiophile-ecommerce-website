@@ -13,9 +13,14 @@ export async function clientAction({ request }: Route.ClientActionArgs) {
   const formData = await request.formData()
   const product = await getProduct(formData.get("id") as string)
   const quantity = formData.get("quantity") as string
-  const item = addToCart(product, Number(quantity))
+  const cart: CartItem[] = JSON.parse(localStorage.getItem("cart") || "[]")
 
-  return { item }
+  if (cart.find(item => item.id === String(product.id))) {
+    updateCart(product, Number(quantity))
+  }
+  else {
+    addToCart(product, Number(quantity))
+  }
 }
 
 function addToCart(product: Product, quantity: number) {
@@ -23,7 +28,7 @@ function addToCart(product: Product, quantity: number) {
   const item: CartItem = {
     id: String(product.id),
     name: product.name,
-    quantity: quantity,
+    quantity: Number(quantity),
     price: product.price,
     image: product.image.mobile
   }
@@ -33,6 +38,12 @@ function addToCart(product: Product, quantity: number) {
   } else {
     localStorage.setItem("cart", JSON.stringify([item]))
   }
+}
 
-  return item
+function updateCart(product: Product, quantity: number) {
+  const cart: CartItem[] = JSON.parse(localStorage.getItem("cart") || "[]")
+  const item = cart.find(item => item.id === String(product.id))!
+
+  item.quantity = quantity
+  localStorage.setItem("cart", JSON.stringify(cart))
 }

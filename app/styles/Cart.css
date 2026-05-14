@@ -6,6 +6,8 @@
   flex-flow: column;
   gap: 1.5rem;
   max-width: 23.625rem;
+  min-height: 15rem;
+  min-width: 20rem;
   padding: 2rem;
   position-area: bottom span-left;
   top: 1rem;
@@ -94,5 +96,11 @@
 
   a.checkout {
     width: 100%;
+  }
+
+  p.empty-cart {
+    margin: auto;
+    opacity: .6;
+    text-align: center;
   }
 }

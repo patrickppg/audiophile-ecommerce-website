@@ -12,12 +12,39 @@ interface Props {
 
 export default function Cart({ cart }: Props) {
   const refCartLabel = useRef<HTMLDivElement>(null)
+  const refCart = useRef<HTMLDivElement>(null)
   const fetcher = useFetcher()
   
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     fetcher.submit({
       id: e.currentTarget.getAttribute("data-product-id"),
       quantity: e.currentTarget.value
+    }, {
+      method: "POST",
+      action: "/cart/update"
+    })
+  }
+
+  function handleDecrement({ id, quantity }: {
+    id: number,
+    quantity: number
+  }) {
+    fetcher.submit({
+      id,
+      quantity,
+    }, {
+      method: "POST",
+      action: "/cart/update"
+    })
+  }
+
+  function handleIncrement({ id, quantity}: {
+    id: number,
+    quantity: number
+  }) {
+    fetcher.submit({
+      id,
+      quantity,
     }, {
       method: "POST",
       action: "/cart/update"
@@ -53,25 +80,39 @@ export default function Cart({ cart }: Props) {
       <button className="cart" aria-label="Cart" popoverTarget="popover-cart" onMouseDown={handleMouseDown}>
         <IconCart aria-hidden="true" />
       </button>
-      <div id="popover-cart" className="cart" popover="auto" onBlur={handleBlur}>
-        <div className="container-label-remove">
-          <div className="label-cart" ref={refCartLabel} tabIndex={-1}>Cart ({cart.length})</div>
-          <button className="remove" onClick={handleRemoveAllClick}>Remove all</button>
-        </div>
-        <ul className="items">
-          {cart.map(item => (
-            <li className="item" key={item.id}>
-              <img className="product" src={item.image} alt="" />
-              <span className="details">
-                <strong className="name">{item.name}</strong>
-                <span className="price">{formatPrice(item.price)}</span>
-              </span>
-              <Spinbutton className="quantity" type="number" defaultValue={item.quantity} data-product-id={item.id} onChange={handleChange} />
-            </li>
-          ))}
-        </ul>
-        <p className="total">TOTAL <strong>{total}</strong></p>
-        <Link to="/checkout" className="checkout widget-style-1">Checkout</Link>
+      <div id="popover-cart" className="cart" popover="auto" ref={refCart} onBlur={handleBlur}>
+        {!!cart.length && (
+          <>
+            <div className="container-label-remove">
+              <div className="label-cart" ref={refCartLabel} tabIndex={-1}>Cart ({cart.length})</div>
+              <button className="remove" onClick={handleRemoveAllClick}>Remove all</button>
+            </div>
+            <ul className="items">
+              {cart.map(item => (
+                <li className="item" key={item.id}>
+                  <img className="product" src={item.image} alt="" />
+                  <span className="details">
+                    <strong className="name">{item.name}</strong>
+                    <span className="price">{formatPrice(item.price)}</span>
+                  </span>
+                  <Spinbutton
+                    className="quantity"
+                    type="number"
+                    value={item.quantity}
+                    min={1}
+                    data-product-id={item.id}
+                    onDecrement={() => handleDecrement({ id: Number(item.id), quantity: item.quantity - 1})}
+                    onIncrement={() => handleIncrement({ id: Number(item.id), quantity: item.quantity + 1 })}
+                    onChange={handleChange}
+                  />
+                </li>
+              ))}
+            </ul>
+            <p className="total">TOTAL <strong>{total}</strong></p>
+          </>
+        )}
+        {!cart.length && <p className="empty-cart">The cart is empty</p>}
+        <Link to="/checkout" className="checkout widget-style-1" hidden={!cart.length} onClick={() => refCart.current?.hidePopover()}>Checkout</Link>
       </div>
     </>
   )
