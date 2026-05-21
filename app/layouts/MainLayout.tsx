@@ -20,7 +20,7 @@ export default function MainLayout({ loaderData }: Route.ComponentProps) {
     <>
       <PageHeader cart={cart} />
       <main><Outlet /></main>
-      {!isAsideHidden && (
+      {/* {!isAsideHidden && (
         <aside className="aside-audiophile">
           <div className="container-content">
             <h2>Bringing you the <span>best</span> audio gear</h2>
@@ -28,7 +28,7 @@ export default function MainLayout({ loaderData }: Route.ComponentProps) {
           </div>
           <img src="/images/shared/desktop/image-best-gear.jpg" alt="" />
         </aside>
-      )}
+      )} */}
       <PageFooter />
     </>
   )
