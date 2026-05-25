@@ -5,3 +5,13 @@ export function formatPrice(price: number) {
     minimumFractionDigits: 0
   })
 }
+
+export function getValidationMessage(control: any): string {
+  if (control.validity.valueMissing) {
+    return "This field is required"
+  } else if (control.validity.typeMismatch || control.validity.patternMismatch) {
+    return "Wrong format"
+  }
+
+  return ""
+}

@@ -1,7 +1,7 @@
 import { Form, Link, useNavigate } from "react-router"
 import type { CartItem } from "./cart/add"
 import type { Route } from "./+types/Checkout"
-import { formatPrice } from "~/utils"
+import { formatPrice, getValidationMessage } from "~/utils"
 import "../styles/Checkout.css"
 import { useState } from "react"
 
@@ -13,9 +13,19 @@ export function clientLoader() {
 
 export default function Checkout({ loaderData }: Route.ComponentProps) {
   const [isPaid, setIsPaid] = useState(false)
+  const [method, setMethod] = useState(0)
+  const [errorMessages, setErrorMessages] = useState(initialErrorMessages)
   
   const { cart } = loaderData
   const navigate = useNavigate()
+
+  function handleSubmit() {
+    setIsPaid(true)
+  }
+
+  function handleInvalid(e: React.InvalidEvent) {
+    e.preventDefault()
+  }
 
   const total = cart.reduce((sum, item) => sum + item.quantity * item.price, 0)
   const shipping = 50
@@ -28,43 +38,110 @@ export default function Checkout({ loaderData }: Route.ComponentProps) {
       <div className="container-checkout-summary" hidden={isPaid}>
         <section className="checkout">
           <h1>Checkout</h1>
-          <Form>
+          <Form id="form-checkout" onSubmit={handleSubmit} onInvalid={handleInvalid}>
             <fieldset>
               <legend>Billing details</legend>
               <div className="container-billing">
-                <label>
-                  Name
-                  <input type="text" name="name" />
-                </label>
-                <label>
-                  Email Address
-                  <input type="email" name="email" />
-                </label>
-                <label>
-                  Phone Number
-                  <input type="text" name="phone" />
-                </label>
+                <div>
+                  <label className={errorMessages.name && "invalid"}>
+                    Name
+                    <input
+                      type="text"
+                      name="name"
+                      required
+                      onBlur={(e: React.SyntheticEvent) => setErrorMessages(p => ({...p, name: getValidationMessage(e.target)}))}
+                      onInvalid={(e: React.InvalidEvent) => setErrorMessages(p => ({...p, name: getValidationMessage(e.target)}))}
+                      />
+                  </label>
+                  <p className="error">{errorMessages.name}</p>
+                </div>
+                <div>
+                  <label className={errorMessages.email && "invalid"}>
+                    Email Address
+                    <input
+                      type="email"
+                      name="email"
+                      required
+                      onBlur={(e: React.SyntheticEvent) => setErrorMessages(p => ({...p, email: getValidationMessage(e.target)}))}
+                      onInvalid={(e: React.InvalidEvent) => setErrorMessages(p => ({...p, email: getValidationMessage(e.target)}))}
+                      />
+                  </label>
+                  <p className="error">{errorMessages.email}</p>
+                </div>
+                <div>
+                  <label className={errorMessages.phone && "invalid"}>
+                    Phone Number
+                    <input
+                      type="text"
+                      name="phone"
+                      required
+                      pattern="\d+"
+                      onBlur={(e: React.SyntheticEvent) => setErrorMessages(p => ({...p, phone: getValidationMessage(e.target)}))}
+                      onInvalid={(e: React.InvalidEvent) => setErrorMessages(p => ({...p, phone: getValidationMessage(e.target)}))}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => e.target.value = e.target.value.replace(/\D/g, '')}
+                      />
+                  </label>
+                  <p className="error">{errorMessages.phone}</p>
+                </div>
               </div>
             </fieldset>
             <fieldset>
               <legend>Shipping info</legend>
               <div className="container-shipping">
-                <label>
-                  Address
-                  <input type="text" name="address" />
-                </label>
-                <label>
-                  ZIP Code
-                  <input type="text" name="zip" />
-                </label>
-                <label>
-                  City
-                  <input type="text" name="city" />
-                </label>
-                <label>
-                  Country
-                  <input type="text" name="country" />
-                </label>
+                <div>
+                  <label className={errorMessages.address && "invalid"}>
+                    Address
+                    <input
+                      type="text"
+                      name="address"
+                      required
+                      onBlur={(e: React.SyntheticEvent) => setErrorMessages(p => ({...p, address: getValidationMessage(e.target)}))}
+                      onInvalid={(e: React.InvalidEvent) => setErrorMessages(p => ({...p, address: getValidationMessage(e.target)}))}
+                      />
+                  </label>
+                  <p className="error">{errorMessages.address}</p>
+                </div>
+                <div>
+                  <label className={errorMessages.zip && "invalid"}>
+                    ZIP Code
+                    <input
+                    type="text"
+                    name="zip"
+                    required
+                    pattern="\d+"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => e.target.value = e.target.value.replace(/\D/g, '')}
+                    onBlur={(e: React.SyntheticEvent) => setErrorMessages(p => ({...p, zip: getValidationMessage(e.target)}))}
+                    onInvalid={(e: React.InvalidEvent) => setErrorMessages(p => ({...p, zip: getValidationMessage(e.target)}))}
+                    />
+                  </label>
+                  <p className="error">{errorMessages.zip}</p>
+                </div>
+                <div>
+                  <label className={errorMessages.city && "invalid"}>
+                    City
+                    <input
+                      type="text"
+                      name="city"
+                      required
+                      onBlur={(e: React.SyntheticEvent) => setErrorMessages(p => ({...p, city: getValidationMessage(e.target)}))}
+                      onInvalid={(e: React.InvalidEvent) => setErrorMessages(p => ({...p, city: getValidationMessage(e.target)}))}
+                    />
+                  </label>
+                  <p className="error">{errorMessages.city}</p>
+                </div>
+                <div>
+                  <label className={errorMessages.country && "invalid"}>
+                    Country
+                    <input
+                      type="text"
+                      name="country"
+                      required
+                      onBlur={(e: React.SyntheticEvent) => setErrorMessages(p => ({...p, country: getValidationMessage(e.target)}))}
+                      onInvalid={(e: React.InvalidEvent) => setErrorMessages(p => ({...p, country: getValidationMessage(e.target)}))}
+                      />
+                  </label>
+                  <p className="error">{errorMessages.country}</p>
+                </div>
               </div>
             </fieldset>
             <fieldset>
@@ -74,24 +151,47 @@ export default function Checkout({ loaderData }: Route.ComponentProps) {
                   <legend className="label">Payment Method</legend>
                   <div>
                     <label>
-                      <input type="radio" name="method" value="emoney" defaultChecked />
+                      <input type="radio" name="method" value="emoney" checked={method === 0} onChange={() => setMethod(0)} />
                       e-Money
                     </label>
                     <label>
-                      <input type="radio" name="method" value="cash" />
+                      <input type="radio" name="method" value="cash" checked={method === 1} onChange={() => setMethod(1)} />
                       Cash on Delivery
                     </label>
                   </div>
                 </fieldset>
-                <label>
-                  e-Money Number
-                  <input type="text" name="emoney_number" />
-                </label>
-                <label>
-                  e-Money PIN
-                  <input type="text" />
-                </label>
-                <p>The ‘Cash on Delivery’ option enables you to pay in cash when our delivery courier arrives at your residence. Just make sure your address is correct so that your order will not be cancelled.</p>
+                <div hidden={method === 1}>
+                  <label className={errorMessages.emoney && "invalid"}>
+                    e-Money Number
+                    <input
+                      type="text"
+                      name="emoney_number"
+                      required={method === 0}
+                      pattern="\d+"
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => e.target.value = e.target.value.replace(/\D/g, '')}
+                      onBlur={(e: React.SyntheticEvent) => setErrorMessages(p => ({...p, emoney: getValidationMessage(e.target)}))}
+                      onInvalid={(e: React.InvalidEvent) => setErrorMessages(p => ({...p, emoney: getValidationMessage(e.target)}))}
+                      />
+                  </label>
+                  <p className="error">{errorMessages.emoney}</p>
+                </div>
+                <div hidden={method === 1}>
+                  <label className={errorMessages.emoneyPin && "invalid"}>
+                    e-Money PIN
+                    <input
+                      type="text"
+                      name="emoney_pin"
+                      required={method === 0}
+                      pattern="\d+"
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => e.target.value = e.target.value.replace(/\D/g, '')}
+                      onBlur={(e: React.SyntheticEvent) => setErrorMessages(p => ({...p, emoneyPin: getValidationMessage(e.target)}))}
+                      onInvalid={(e: React.InvalidEvent) => setErrorMessages(p => ({...p, emoneyPin: getValidationMessage(e.target)}))}
+                    />
+                    
+                  </label>
+                  <p className="error">{errorMessages.emoneyPin}</p>
+                </div>
+                <p hidden={method === 0}>The ‘Cash on Delivery’ option enables you to pay in cash when our delivery courier arrives at your residence. Just make sure your address is correct so that your order will not be cancelled.</p>
               </div>
             </fieldset>
           </Form>
@@ -129,7 +229,7 @@ export default function Checkout({ loaderData }: Route.ComponentProps) {
               <dd>{formatPrice(grandTotal)}</dd>
             </div>
           </dl>
-          <button className="pay widget-style-1" onClick={() => setIsPaid(true)}>Continue & Pay</button>
+          <button className="pay widget-style-1" form="form-checkout">Continue & Pay</button>
         </section>
       </div>
       <div className="container-order" hidden={!isPaid}>
@@ -156,8 +256,20 @@ export default function Checkout({ loaderData }: Route.ComponentProps) {
             <dd>{formatPrice(grandTotal)}</dd>
           </dl>
         </div>
-        <Link className="widget-style-1" to="/">Back to Home</Link>
+        <Link className="widget-style-1" to="/" onClick={() => localStorage.setItem("cart", JSON.stringify([]))}>Back to Home</Link>
       </div>
     </div>
   )
+}
+
+const initialErrorMessages = {
+  name: "",
+  email: "",
+  phone: "",
+  address: "",
+  zip: "",
+  city: "",
+  country: "",
+  emoney: "",
+  emoneyPin: ""
 }

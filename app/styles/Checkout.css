@@ -73,9 +73,12 @@
   }
 
   label:has(:not(input[type="radio"])) {
-    display: flex;
     flex-flow: column;
     gap: .25rem;
+    
+    &:not([hidden]) {
+      display: flex;
+    }
   }
 
   label:has(input[type="radio"]) {
@@ -92,6 +95,10 @@
     color: hsl(var(--color-black));
     font: var(--text-preset-8);
     font-weight: 700;
+
+    &.invalid {
+      color: red;
+    }
   }
 
   input {
@@ -116,6 +123,11 @@
       &:checked {
         background: hsl(var(--color-orange-dark)) content-box;
       }
+    }
+
+    label.invalid > & {
+      border-color: red;
+      outline-color: red;
     }
   }
 
@@ -216,6 +228,19 @@
     .quantity {
       margin-left: auto;
       opacity: .5;
+    }
+  }
+
+  p.error {
+    color: red;
+    font: var(--text-preset-8);
+    margin: unset;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    div:has(> &) {
+      position: relative;
     }
   }
 
