@@ -4,7 +4,7 @@
   display: grid;
   font: var(--text-preset-9);
   gap: 1rem;
-  padding: 4rem calc((100vw - var(--max-page-width)) / 2) 2rem;
+  padding: 4rem max(var(--min-page-padding), calc((100vw - var(--max-page-width)) / 2)) 2rem;
 }
 
 @scope (.page-footer) {
@@ -30,6 +30,15 @@
     display: flex;
     gap: 2rem;
     justify-content: space-between;
+
+    @media (max-width: 768px) {
+      flex-flow: column;
+
+      & ul {
+        align-items: center;
+        flex-flow: column;
+      }
+    }
   }
 
   .container-text-social {
@@ -37,6 +46,16 @@
     display: grid;
     gap: 2rem;
     grid-template-columns: 1fr 1fr;
+
+    @media (max-width: 768px) {
+      grid-template-columns: unset;
+      grid-template-rows: auto auto;
+
+      & nav.social-media {
+        justify-self: center;
+        margin-left: unset;
+      }
+    }
   }
 
   .container-paragraphs {

@@ -1,6 +1,6 @@
 .page-header {
   background: hsl(var(--color-black));
-  padding: 0 calc((100vw - var(--max-page-width)) / 2);
+  padding: 0 max(var(--min-page-padding), calc((100vw - var(--max-page-width)) / 2));
 }
 
 @scope (.page-header) {

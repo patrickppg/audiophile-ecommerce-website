@@ -3,11 +3,16 @@
   gap: 2rem;
   margin: 7.5rem auto;
   max-width: var(--max-page-width);
-  padding: 3.5rem 0;
-  /* padding: 3.5rem calc((100vw - var(--max-page-width)) / 2) 0; */
+  padding: 3.5rem max(var(--min-page-padding), calc((100vw - var(--max-page-width)) / 2));
 
   > * {
     flex: 1;
+  }
+
+  @media (max-width: 768px) {
+    flex-flow: column;
+    gap: 5rem;
+    max-width: 15rem;
   }
 }
 

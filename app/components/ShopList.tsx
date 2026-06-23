@@ -9,7 +9,7 @@ type Props = {
 
 export default function ShopList({ className, onNavigate }: Props) {
   return (
-    <ul className={`shop-list ${className}`}>
+    <ul className={`shop-list ${className || ""}`}>
       <li className="item-category">
         <Link to="/products/headphones" aria-label="Shop Headphones" onClick={() => onNavigate?.()}>
           <img className="product" src="/images/shared/desktop/image-category-thumbnail-headphones.png" alt="" />

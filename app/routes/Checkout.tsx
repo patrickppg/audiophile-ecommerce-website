@@ -19,7 +19,8 @@ export default function Checkout({ loaderData }: Route.ComponentProps) {
   const { cart } = loaderData
   const navigate = useNavigate()
 
-  function handleSubmit() {
+  function handleSubmit(e: React.SyntheticEvent) {
+    e.preventDefault()
     setIsPaid(true)
   }
 

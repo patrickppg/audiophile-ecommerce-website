@@ -17,12 +17,31 @@
   section {
     align-items: center;
     display: flex;
-    gap: 8rem;
-    margin-block: 8rem;
-    padding: 0 calc((100vw - var(--max-page-width)) / 2);
-    
-    &:nth-child(even) {
-      flex-flow: row-reverse;
+    gap: 6rem;
+    margin: 8rem auto;
+    padding: 0 max(var(--min-page-padding), calc((100vw - var(--max-page-width)) / 2));
+
+    @media (max-width: 1000px) {
+      & > * {
+        flex: 1;
+      }
+    }
+
+    @media (max-width: 860px) {
+      flex-flow: column-reverse;
+      gap: 3rem;
+      max-width: 600px;
+      text-align: center;
+
+      & a {
+        margin-inline: auto;
+      }
+    }
+
+    @media (min-width: 860px) {
+      &:nth-child(even) {
+        flex-flow: row-reverse;
+      }
     }
     
     & h2 {
@@ -38,7 +57,7 @@
     
     & img {
       border-radius: var(--radius-8);
-      height: 35rem;
+      max-width: 50%;
     }
   }
 }

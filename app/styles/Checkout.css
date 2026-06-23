@@ -1,7 +1,7 @@
 .page-checkout {
   main:has(&) {
     background: hsl(var(--color-grey-2));
-    padding: 5rem calc((100vw - var(--max-page-width)) / 2);
+    padding: 5rem max(var(--min-page-padding), calc((100vw - var(--max-page-width)) / 2));
   }
 }
 
@@ -12,6 +12,10 @@
     box-sizing: border-box;
     flex: 1;
     padding: 3rem;
+
+    @media (max-width: 450px) {
+      padding: 1.5rem;
+    }
   }
 
   section.summary {
@@ -24,6 +28,10 @@
     gap: 1.5rem;
     padding: 2rem;
     width: 21.875rem;
+
+    @media (max-width: 1000px) {
+      width: unset;
+    }
   }
   
   h1 {
@@ -53,6 +61,12 @@
         margin-top: -1.5rem;
         transform: translateX(calc(100% + 1rem));
         width: calc(50% - .5rem);
+
+        @media (max-width: 720px) {
+          margin-top: .25rem;
+          transform: unset;
+          width: unset;
+        }
       }
     }
     
@@ -186,6 +200,10 @@
       font: var(--text-preset-6);
       margin: unset;
     }
+
+    @media (max-width: 720px) {
+      max-width: unset;
+    }
   }
 
   ul.items {
@@ -252,11 +270,20 @@
     &:not([hidden]) {
       display: flex;
     }
+    
+    @media (max-width: 1000px) {
+      align-items: unset;
+      flex-flow: column;
+    }
   }
 
   div.container-billing {
     display: grid;
     grid: auto auto / auto auto;
+
+    @media (max-width: 720px) {
+      grid: unset;
+    }
   }
 
   div.container-shipping {
@@ -265,6 +292,10 @@
 
     :first-child {
       grid-column: 1 / -1;
+    }
+
+    @media (max-width: 720px) {
+      grid: unset;
     }
   }
 
@@ -280,6 +311,10 @@
       grid-column: 1 / -1;
       margin: unset;
       opacity: .6;
+    }
+
+    @media (max-width: 720px) {
+      grid: unset;
     }
   }
 
@@ -304,6 +339,10 @@
 
     & a {
       width: 100%;
+    }
+
+    @media (max-width: 720px) {
+      padding: 1.5rem;
     }
   }
 
@@ -335,6 +374,10 @@
         flex-flow: column;
         padding: 1rem 2.5rem;
       }
+    }
+
+    @media (max-width: 720px) {
+      flex-flow: column;
     }
   }
 }

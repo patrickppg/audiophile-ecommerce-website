@@ -11,6 +11,11 @@
   padding: 2rem;
   position-area: bottom span-left;
   top: 1rem;
+
+  @media (max-width: 450px) {
+    margin-inline: 1rem;
+    padding: 1rem;
+  }
 }
 
 @scope (.cart) {
