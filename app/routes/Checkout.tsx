@@ -237,7 +237,7 @@ export default function Checkout({ loaderData }: Route.ComponentProps) {
         <h1>Thank You<br />for your order</h1>
         <p>You will receive an email confirmation shortly.</p>
         <div className="container-order-details">
-          <div>
+          <div className="container-order-details-items">
             <ul className="items">
               <li className="item">
                 <img className="product" src={cart[0].image} alt="" />            
